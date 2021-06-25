@@ -48,9 +48,9 @@ app.get('/linenotifycallback', function (request, response) {
         var data = {
             "grant_type": 'authorization_code',
             "code": notifyCode,
-            "redirect_uri": 'https://3b37620e9255.ngrok.io/linenotifycallback',
-            "client_id": '3DwsOFccpUAMcIJeK7QGqB',
-            "client_secret": 'aPn7YxUViYLaS6qoLBhwaw92qTQMVDaxkyOHGi1MvJL'
+            "redirect_uri": 'https://linebot-web.chainsecurity.asia/linenotifycallback',
+            "client_id": 'ypYKv8GUSr3SSboUCYEUOg',
+            "client_secret": 'ZJd1jB6Bc4or3hx6N25ddUxWXUqwvZYz6xnr9uoUZdJ'
         };
 
         postFormData ('https://notify-bot.line.me/oauth/token', data)  
