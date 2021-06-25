@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <title>Linebot Login</title>
+        <style>
+            .event-form {
+                width: 300px;
+                margin: 0 auto;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            .event-form h1 {
+                text-align: center;
+                color: #4d4d4d;
+                font-size: 24px;
+                padding: 20px 0 20px 0;
+            }
+
+            div.container {
+                text-align: center;
+                padding: 2px 5px;
+            }
+
+            .event-form input[type='text'] {
+                width: 100%;
+                padding: 15px;
+                border: 1px solid #dddddd;
+                margin-bottom: 15px;
+                box-sizing: border-box;
+            }
+            .event-form input[type='time'],
+            .event-form input[type='date'] {
+             	width: 100%;
+                padding: 1px;
+                border: 1px solid #dddddd;
+                margin-bottom: 15px;
+            }
+            
+            .event-form input[type='button'] {
+                width: 100%;
+                padding: 15px;
+                background-color: #535b63;
+                border: 0;
+                box-sizing: border-box;
+                cursor: pointer;
+                font-weight: bold;
+                color: #ffffff;
+            } 
+        </style>
+    </head>
+
+
+    <body onload="showMembers()">
+        <div class='event-form'>
+            <h1>建立外出活動</h1>
+
+            <form id='eventForm'>
+                <label for="eventname">活動名稱:</label>
+                <input type="text" id="eventname" name="eventname" placeholder='Event Name' required>
+                <label for="datePicker">活動日期:</label>
+                <input type="date" id="datePicker" name="datePicker" required></br>
+                <label for="appt">活動時間:</label>
+                <input type="time" id="appt" name="appt"required></br>
+                <label for="checkboxContainer">同行人員(可多選):</label>
+                <div class="container" id='checkboxContainer'></div>
+               
+                <input type="button" id=submit value='提交'>
+            </form>
+        </div>
+    </body>
+    <script language='javascript'>
+        function showMembers () {
+            var url_string = window.location.href;
+            var url = new URL(url_string);
+            var member_string = url.searchParams.get('members');
+            var members = member_string.split('-');
+            var self = url.searchParams.get('self');
+            
+            var memberIndex = 0;
+            members.forEach(member => {
+
+                var checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = member;
+                checkbox.name = `member`;
+                checkbox.value = member;
+            
+                var label = document.createElement('label')
+                label.htmlFor = member;
+                label.appendChild(document.createTextNode(`${member} `));
+                
+                var container = document.getElementById('checkboxContainer');
+                
+                container.appendChild(checkbox);
+                container.appendChild(label);
+                if (memberIndex % 3 == 0) {
+                    var br = document.createElement('br');
+                    container.appendChild(br);
+                }
+            });
+
+            document.getElementById(self).checked = true;
+            document.getElementById(self).disabled = 'disabled';
+        }
+    </script>
+
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script>
+        var liffID = '1656109800-n7V6L7Eb';
+        
+        liff.init ({
+            liffId: liffID
+        }).then (function() {
+            document.getElementById('submit').onclick = function() {
+
+                var date = document.getElementById('datePicker').value;
+                var time = document.getElementById('appt').value;
+                var event = document.getElementById('eventname').value;
+
+                var names = [];
+                var checkboxs = document.getElementsByName("member");
+                checkboxs.forEach(cb => {
+                    if (cb.checked == true) {
+                        names.push(`"${cb.value}"`);
+                    }
+                });
+
+                var msg = `建立外出活動\n{\n"eventName": "${event}",\n"eventTime": "${date}T${time}",\n"members":[${names.join(',')}]\n}`;
+                liff.sendMessages([
+                {
+                    type: 'text',
+                    text: msg
+                }
+                ])
+                .then(() => {
+                    liff.closeWindow();
+                })
+                .catch((err) => {
+                    console.log('error', err);
+                    liff.closeWindow();
+                });
+                
+            }
+        }).catch (function(error) {
+            console.log(error);
+        })
+
+        
+
+    </script>
+</html>

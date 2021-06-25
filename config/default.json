@@ -1,0 +1,5 @@
+{
+    "Settings": {
+        "lineNotifyCallback": "https://3b37620e9255.ngrok.io/linenotifycallback"
+    }
+}

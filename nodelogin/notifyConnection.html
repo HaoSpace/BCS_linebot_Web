@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <title>Linebot Login</title>
+        <style>
+            .login-form h1 {
+                text-align: center;
+                color: #4d4d4d;
+                font-size: 24px;
+                padding: 20px 0 20px 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class='login-form'>
+            <h1>Line nottify</h1>
+        </div>
+    </body>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script>
+        var liffID = '1656109800-n7V6L7Eb';
+        
+        liff.init ({
+            liffId: liffID
+        }).then (function() {
+            var URL = 'https://notify-bot.line.me/oauth/authorize?';
+            URL += 'response_type=code';
+            URL += '&client_id=3DwsOFccpUAMcIJeK7QGqB';
+            URL += '&redirect_uri=https://3b37620e9255.ngrok.io/linenotifycallback';
+            URL += '&scope=notify';
+            URL += '&state=abcde';
+
+            window.location.href = URL;
+        }).catch (function(error) {
+            console.log(error);
+        })
+
+    </script>
+</html>

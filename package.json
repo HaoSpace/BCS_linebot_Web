@@ -1,0 +1,22 @@
+{
+  "name": "login",
+  "version": "1.0.0",
+  "description": "login page",
+  "main": "login.js",
+  "scripts": {
+    "start": "node ./nodelogin/login.js",
+    "test": "node ."
+  },
+  "author": "Jason Lin",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "config": "^3.3.6",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "form-data": "^4.0.0",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {}
+}
