@@ -26,14 +26,17 @@
         liff.init ({
             liffId: liffID
         }).then (function() {
-            var URL = 'https://notify-bot.line.me/oauth/authorize?';
-            URL += 'response_type=code';
-            URL += '&client_id=3DwsOFccpUAMcIJeK7QGqB';
-            URL += '&redirect_uri=https://linebot-web.chainsecurity.asia/linenotifycallback';
-            URL += '&scope=notify';
-            URL += '&state=abcde';
+            var url_string = window.location.href;
+            var url = new URL(url_string);
 
-            window.location.href = URL;
+            var LineURL = 'https://notify-bot.line.me/oauth/authorize?';
+            LineURL += 'response_type=code';
+            LineURL += '&client_id=3DwsOFccpUAMcIJeK7QGqB';
+            LineURL += `&redirect_uri=${url.hostname}/linenotifycallback`;
+            LineURL += '&scope=notify';
+            LineURL += '&state=abcde';
+
+            window.location.href = LineURL;
         }).catch (function(error) {
             console.log(error);
         })

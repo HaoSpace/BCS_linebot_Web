@@ -44,11 +44,12 @@ app.get('/linenotifycallback', function (request, response) {
     
     if (request.query.code) {
         var notifyCode = request.query.code;
+        
         console.log(`notify Code: ${notifyCode}`);
         var data = {
             "grant_type": 'authorization_code',
             "code": notifyCode,
-            "redirect_uri": 'https://linebot-web.chainsecurity.asia/linenotifycallback',
+            "redirect_uri": `${request.protocol + 's://' + request.get('host')}/linenotifycallback`,
             "client_id": 'ypYKv8GUSr3SSboUCYEUOg',
             "client_secret": 'ZJd1jB6Bc4or3hx6N25ddUxWXUqwvZYz6xnr9uoUZdJ'
         };
