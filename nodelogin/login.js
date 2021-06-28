@@ -49,7 +49,7 @@ app.get('/linenotifycallback', function (request, response) {
         var data = {
             "grant_type": 'authorization_code',
             "code": notifyCode,
-            "redirect_uri": `${request.protocol + 's://' + request.get('host')}/linenotifycallback`,
+            "redirect_uri": `${request.protocol + 's://' + request.get('host')}:3001/linenotifycallback`,
             "client_id": 'ypYKv8GUSr3SSboUCYEUOg',
             "client_secret": 'ZJd1jB6Bc4or3hx6N25ddUxWXUqwvZYz6xnr9uoUZdJ'
         };
