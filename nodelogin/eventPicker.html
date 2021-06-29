@@ -38,6 +38,7 @@
                 margin-bottom: 15px;
             }
             
+            .event-form input[type='submit'],
             .event-form input[type='button'] {
                 width: 100%;
                 padding: 15px;
@@ -57,11 +58,11 @@
             <h1>建立外出活動</h1>
 
             <form id='eventForm'>
-                <label for="eventname">活動名稱:</label>
-                <input type="text" id="eventname" name="eventname" placeholder='Event Name' maxlength="20" required>
-                <label for="datePicker">活動日期:</label>
+                <label for="eventname">*活動名稱:</label>
+                <input type="text" id="eventname" name="eventname" placeholder='最多20字' maxlength="20" required>
+                <label for="datePicker">*活動日期:</label>
                 <input type="date" id="datePicker" name="datePicker" required></br>
-                <label for="appt">活動時間:</label>
+                <label for="appt">*活動時間:</label>
                 <input type="time" id="appt" name="appt"required></br>
                 <label for="checkboxContainer">同行人員(可多選):</label>
                 <div class="container" id='checkboxContainer'></div>
@@ -118,6 +119,12 @@
                 var date = document.getElementById('datePicker').value;
                 var time = document.getElementById('appt').value;
                 var event = document.getElementById('eventname').value;
+
+                
+                if (date == "" || time == "" || event == "") {
+                    alert('仍有必填項目未填寫');
+                    return;
+                }
 
                 var names = [];
                 var checkboxs = document.getElementsByName("member");
