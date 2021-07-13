@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <title>Linebot Login</title>
+        <style>
+            .event-form {
+                width: 300px;
+                margin: 0 auto;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+            .event-form h1 {
+                text-align: center;
+                color: #4d4d4d;
+                font-size: 24px;
+                padding: 20px 0 20px 0;
+            }
+
+            div.container {
+                text-align: center;
+                padding: 2px 5px;
+            }
+
+            .event-form input[type='text'] {
+                width: 100%;
+                padding: 15px;
+                border: 1px solid #dddddd;
+                margin-bottom: 15px;
+                box-sizing: border-box;
+            }
+            .event-form input[type='time'],
+            .event-form input[type='date'] {
+             	width: 100%;
+                padding: 1px;
+                border: 1px solid #dddddd;
+                margin-bottom: 15px;
+            }
+            
+            .event-form input[type='submit'],
+            .event-form input[type='button'] {
+                width: 100%;
+                padding: 15px;
+                background-color: #535b63;
+                border: 0;
+                box-sizing: border-box;
+                cursor: pointer;
+                font-weight: bold;
+                color: #ffffff;
+            } 
+        </style>
+    </head>
+
+
+    <body>
+        <div class='event-form'>
+            <h1>上班打卡中....</h1>
+        </div>
+    </body>
+
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script>
+        var liffID = '1656109800-n7V6L7Eb';
+        
+        liff.init ({
+            liffId: liffID
+        }).then (function() {
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else {
+                    var noGpsMsg = "Geolocation is not supported by this browser.";
+                    sendMsg(noGpsMsg);
+                }
+            }
+
+            function showPosition(position) {
+                var posMsg = window.btoa([position.coords.latitude, position.coords.longitude, Date.now()]);
+              
+                sendMsg(posMsg)
+            }
+
+            function sendMsg (msg) {
+                liff.sendMessages([
+                {
+                    type: 'text',
+                    text: msg
+                }
+                ])
+                .then(() => {
+                    liff.closeWindow();
+                })
+                .catch((err) => {
+                    console.log('error', err);
+                    liff.closeWindow();
+                });
+            }
+            getLocation();
+            // document.getElementById('submit').onclick = function() {
+
+                
+            //     var msg = `建立外出活動\n{\n"eventName": "${event}",\n"eventTime": "${date}T${time}",\n"members":[${names.join(',')}]\n}`;
+            //     liff.sendMessages([
+            //     {
+            //         type: 'text',
+            //         text: msg
+            //     }
+            //     ])
+            //     .then(() => {
+            //         liff.closeWindow();
+            //     })
+            //     .catch((err) => {
+            //         console.log('error', err);
+            //         liff.closeWindow();
+            //     });
+                
+            // }
+        }).catch (function(error) {
+            console.log(error);
+        })
+
+        
+
+    </script>
+</html>
