@@ -40,6 +40,10 @@ app.get('/eventpicker', function (request, response) {
     response.sendFile(path.join(__dirname + '/eventPicker.html'));
 });
 
+app.get('/punchin', function (request, response) {
+    response.sendFile(path.join(__dirname + '/userPunchIn.html'));
+})
+
 app.get('/linenotifycallback', function (request, response) {
     
     if (request.query.code) {
